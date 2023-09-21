@@ -1,0 +1,41 @@
+syntax="proto3";
+package com.example.proto;
+option java_multiple_files=true;
+option java_package="com.example.grpc";
+
+
+service EmployeeService{
+  //Create new employee
+  rpc createEmployee(Employee) returns(Employee);
+  //Retrieve employee by id
+  rpc getEmployeeById(EmployeeId) returns (Employee);
+  //Get all employee
+  rpc getEmployees(Empty) returns(stream EmployeeList);
+  //Update employee by id
+  rpc updateEmployee(updateEmployeeRequest) returns(Employee);
+  //Delete employee by id
+  rpc deleteEmployee(EmployeeId) returns (Empty);
+}
+
+message  Employee{
+   int64 id=1;
+   string firstname=2;
+   string lastname=3;
+   string department=4;
+   string role=5;
+}
+message Empty{}
+message EmployeeList{
+  repeated Employee employee=1;
+}
+message updateEmployeeRequest{
+  int64 id=1;
+  string firstname=2;
+  string lastname=3;
+  string department=4;
+  string role=5;
+}
+message EmployeeId {
+  int64 id = 1;
+}
+
